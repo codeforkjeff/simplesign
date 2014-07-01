@@ -9,7 +9,7 @@ Requirements
 
 You will need to install the [alphasign library](https://github.com/msparks/alphasign), which implements the protocol to communicate with the LED sign.
 
-If you use and adapt the 'complex' configuration file, you will the [BeautifulSoup](http://www.crummy.com/software/BeautifulSoup/) and [requests](http://docs.python-requests.org/en/latest/) libraries.
+If you use and adapt the 'complex' configuration file, you will need the [BeautifulSoup](http://www.crummy.com/software/BeautifulSoup/) and [requests](http://docs.python-requests.org/en/latest/) libraries.
 
 I've only used this with a BetaBrite Classic, so I don't know how well it works with any other models.
 

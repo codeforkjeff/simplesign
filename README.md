@@ -38,3 +38,7 @@ config-sample.py contains the bare bones "hello world" example to demonstrate th
 config-complex.py creates messages from a number of different sources, including buildbot status (which we use for continuous integration to track breakage), weather.com, news sources, The Onion, bugzilla 'quips', etc. This is more or less the config file used at my workplace, but I've blanked out URLs and hostnames, so you will need to adapt the code
 for your own purposes.
 
+To run a particular configuration, use the -m option:
+
+    ./simplesign.py -m config-sample
+

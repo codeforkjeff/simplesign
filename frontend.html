@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>The Systems Sign</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                // This should be changed if this file is served
+                // statically from a machine different from where
+                // simplesign.py is being run
+                var HOST = window.location.hostname;
+                var PORT = 8000;
+
+                $("#submit").click(function() {
+                    var message = {
+                        'text' : $("#text").val(),
+                        'color' : $("#color").find(":selected").text(),
+                        'mode' : $("#mode").find(":selected").text()
+                    };
+                    var objToSend = message;
+                    var endpoint = "enqueue_message";
+                    if($("input[name='type']:checked").val() === 'asap') {
+                        var duration = $("#duration").find(":selected").text();
+                        duration = parseInt(duration, 10) * 60;
+                        var sequence = {
+                            'duration' : duration,
+                            'messages' : [ message ]
+                        };
+                        objToSend = sequence;
+                        endpoint = "enqueue_sequence";
+                    }
+                    console.log(objToSend);
+                    $("#submit").prop("disabled", true);
+                    $("#submit").attr("value", "Please wait...");
+                    $.ajax("http://" + HOST + ":" + PORT + "/" + endpoint, {
+                        'type' : 'POST',
+                        'data' : JSON.stringify(objToSend),
+                        'success' : function (data, textStatus, jqXHR) {
+                            $("#status").text("Your message has been queued.");
+                            $("#message").val('');
+                        },
+                        'error' : function (data, textStatus, jqXHR) {
+                            $("#status").text("There was an error queuing your message: " + textStatus);
+                        },
+                        'complete' : function() {
+                            $("#submit").prop("disabled", false);
+                            $("#submit").attr("value", "Queue It!");
+                            setTimeout(function() {
+                                $("#status").text('');
+                            }, 5000);
+                        }
+                    });
+                    return false;
+                });
+            });
+        </script>
+        <style type="text/css">
+            body { color:white; background: black }
+            .label  { float: left; width: 240px; text-align: right; }
+            .row { margin-top: 10px }
+            .indent { margin-left: 250px; }
+            #status { color: red; }
+        </style>
+    </head>
+    <body>
+        <h1>The Systems Sign</h1>
+        <form>
+            <div class="row">
+                <div class="label">Enter your message: </div>
+                <div class="indent">
+                    <textarea id="text" cols="50" rows="5" placeholder="Max 10 lines, 80 chars/line. Please play nice!" maxlength="800"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="indent">
+                    <select id="mode" name="mode">
+                        <option>HOLD</option>
+                        <option>AUTOMODE</option>
+                        <option>ROTATE</option>
+                        <option>ROLL_UP</option>
+                        <option>ROLL_DOWN</option>
+                        <option>ROLL_LEFT</option>
+                        <option>ROLL_RIGHT</option>
+                        <option>ROLL_IN</option>
+                        <option>ROLL_OUT</option>
+                        <option>SCROLL</option>
+                        <option>WIPE_UP</option>
+                        <option>WIPE_DOWN</option>
+                        <option>WIPE_LEFT</option>
+                        <option>WIPE_RIGHT</option>
+                        <option>WIPE_IN</option>
+                        <option>WIPE_OUT</option>
+                    </select>
+                    in 
+                    <select id="color" name="color">
+                        <option>RED</option>
+                        <option>GREEN</option>
+                        <option>AMBER</option>
+                        <option>DIM_RED</option>
+                        <option>DIM_GREEN</option>
+                        <option>BROWN</option>
+                        <option>ORANGE</option>
+                        <option>YELLOW</option>
+                        <option>RAINBOW_1</option>
+                        <option>RAINBOW_2</option>
+                        <option>COLOR_MIX</option>
+                        <option>AUTOCOLOR</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="label">Display it </div>
+                <div class="indent">
+                    <input type="radio" name="type" value="asap" id="asap" checked /><label for="asap">only once, ASAP, for a duration of </label>
+                    <select id="duration" name="duration">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                    <label for="asap">minute(s)</label>
+                </div>
+                <div class="indent" style="margin-top: 8px">
+                    <input type="radio" name="type" value="rotation" id="rotation"/><label for="rotation">as part of the message rotation for the next 2 hrs</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="indent">
+                    <input type="submit" id="submit" value="Queue It!"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="indent">
+                    <div id="status"></div>
+                </div>
+            </div>
+        </form>
+    </body>
+</html>

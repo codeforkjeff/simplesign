@@ -1,8 +1,15 @@
 simplesign
 ==========
 
-Simple application that periodically displays messages on a BetaBrite LED sign 
+Simple application that allows you to write python code to dynamically display messages on a [BetaBrite LED sign](http://betabrite.com/)
 
+
+Background
+----------
+
+I bought a used [BetaBrite Classic](http://betabrite.com/pages/bbclassic.htm) on Ebay and thought it would be fun to hook it up in my team's corral at work to display useful and fun information. Currently it displays whether any of our software builds (using buildbot) have broken and whose commit is responsible, weather information, news, headlines from The Onion, bugzilla 'quips' and a few other pieces of info.
+
+As of July 2014, this code has been running continuously on a spare Mac Mini for about 6 months, hooked up to the LED sign via a USB-serial adapter.
 
 Requirements
 ------------
@@ -33,10 +40,9 @@ Config files are just regular Python modules. They need to define a single funct
 
 sign_sequence() should return a dict representing a sequence of messages to display. It should contain two key/value pairs: 'duration', whose value is an int specifying the duration of the sequence in seconds, and 'messages', a list of dicts each describing a message to display.
 
-config-sample.py contains the bare bones "hello world" example to demonstrate the data structure that config file should return
+config-sample.py contains the bare bones "hello world" example to demonstrate the data structure that the config file should return.
 
-config-complex.py creates messages from a number of different sources, including buildbot status (which we use for continuous integration to track breakage), weather.com, news sources, The Onion, bugzilla 'quips', etc. This is more or less the config file used at my workplace, but I've blanked out URLs and hostnames, so you will need to adapt the code
-for your own purposes.
+config-complex.py is more or less the config file used at my workplace, but I've blanked out URLs and hostnames, so you will need to adapt the code for your own purposes.
 
 To run a particular configuration, use the -m option:
 

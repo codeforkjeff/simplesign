@@ -7,7 +7,7 @@ Simple application that allows you to write python code to dynamically display m
 Background
 ----------
 
-I bought a used [BetaBrite Classic](http://betabrite.com/pages/bbclassic.htm) on Ebay and thought it would be fun to hook it up in my team's corral at work to display useful and fun information. Currently it displays whether any of our software builds (using buildbot) have broken and whose commit is responsible, the system status of our web application, weather information, news, headlines from The Onion, bugzilla 'quips' and a few other pieces of info.
+I bought a used [BetaBrite Classic](http://betabrite.com/pages/bbclassic.htm) on Ebay and thought it would be fun to hook it up in my team's corral at work to display useful and fun information. Currently it displays whether any of our software builds using [buildbot](http://buildbot.net) have broken (and whose commit is responsible!), whether our automated test suite is passing, the system status of our web application, weather information, news, headlines from The Onion, bugzilla 'quips' and a few other pieces of info.
 
 As of July 2014, this code has been running continuously on a spare Mac Mini for about 6 months, hooked up to the LED sign via a USB-serial adapter.
 

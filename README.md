@@ -4,6 +4,9 @@ simplesign
 Simple application that allows you to write python code to dynamically display messages on a [BetaBrite LED sign](http://betabrite.com/)
 
 
+![photo of simplesign in action](http://codefork.com/images/systems_sign.jpg)
+
+
 Background
 ----------
 
